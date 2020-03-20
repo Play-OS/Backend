@@ -1,0 +1,37 @@
+{
+  "name": "playos-backend",
+  "description": "Backend core for PlayOS. (Reference implementation)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/node": "^13.9.2",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.7.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "apollo-server": "^2.11.0",
+    "class-validator": "^0.11.1",
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.0.7",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.24"
+  },
+  "scripts": {
+    "start": "node 'dist/server.js'",
+    "build": "tsc -p . && ncp src/schema dist/schema",
+    "dev": "npm run build:dev",
+    "build:dev": "nodemon 'src/server.ts' --exec 'ts-node' src/server.ts -e ts,graphql,json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Play-OS/Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Play-OS/Backend/issues"
+  },
+  "homepage": "https://github.com/Play-OS/Backend#readme"
+}

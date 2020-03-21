@@ -13,10 +13,10 @@ const typeDef = gql`
 
     input UserInput {
         "The public key derived address"
-        address: String
+        address: String!
 
         "Encrypted data for storage"
-        data: String
+        data: String!
     }
 
     extend type Mutation {

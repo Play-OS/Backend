@@ -12,7 +12,7 @@ export class File {
     // Virtual path. In the database everything is the same level
     // this allows us to create a filesystem
     @Column()
-    virtualPath!: string;
+    path!: string;
 
     // The actual location of the file.
     @Column()

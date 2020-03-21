@@ -32,9 +32,7 @@ const resolvers = {
             user.address = args.user.address;
             user.data = args.user.data;
 
-            const errors = await validate(user, {
-                dismissDefaultMessages: true,
-            });
+            const errors = await validate(user);
 
             if (errors.length) {
                 throw new UserInputError('Validation Errors', {

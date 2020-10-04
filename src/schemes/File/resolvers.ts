@@ -21,7 +21,7 @@ const resolvers = {
                 where: {
                     path: args.path,
                     owner: args.signedMessage,
-                }
+                },
             });
 
             return file;
@@ -33,12 +33,27 @@ const resolvers = {
             const stream = file.createReadStream();
             const fileLocation = await uploadFile(stream, Math.random().toString());
 
-            const createdFile = new File();
-            createdFile.owner = args.signedMessage;
-            createdFile.fileLocation = fileLocation;
-            createdFile.path = args.path;
+            // Make sure the file doesn't already exist
+            // otherwise we should overwrite it
+            const databaseFile = await context.connection.getRepository(File).findOne({
+                where: {
+                    path: args.path,
+                    owner: args.signedMessage,
+                },
+            });
 
-            return context.connection.manager.save(createdFile);
+            if (databaseFile) {
+                const updatedFile = await context.connection.getRepository(File).update({ id: databaseFile.id }, { fileLocation });
+                databaseFile.fileLocation = fileLocation;
+                return databaseFile;
+            } else {
+                const createdFile = new File();
+                createdFile.owner = args.signedMessage;
+                createdFile.fileLocation = fileLocation;
+                createdFile.path = args.path;
+
+                return context.connection.manager.save(createdFile);
+            }
         }
     }
 };

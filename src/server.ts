@@ -4,10 +4,14 @@ import dotenv from 'dotenv';
 import express from 'express';
 import * as file from './schemes/File';
 import * as user from './schemes/User';
+import * as vm from './schemes/Vm';
 import bootDatabase from './database';
+import bootVm from './vm';
+import Kernel from '@playos/kernel/src/Kernel';
 
 export interface Context {
     connection: Connection;
+    kernel: Kernel;
 }
 
 async function bootServer() {
@@ -15,6 +19,7 @@ async function bootServer() {
     console.info('🚀 Booting GraphQL server');
 
     const connection = await bootDatabase();
+    const kernel = await bootVm();
 
     const typeDef = gql`
         type Query
@@ -23,12 +28,13 @@ async function bootServer() {
 
     const server = new ApolloServer({
         uploads: true,
-        typeDefs: [typeDef, file.typeDef, user.typeDef],
-        resolvers: [file.resolvers, user.resolvers],
+        typeDefs: [typeDef, file.typeDef, user.typeDef, vm.typeDef],
+        resolvers: [file.resolvers, user.resolvers, vm.resolvers],
         tracing: true,
         debug: true,
         context: {
             connection,
+            kernel,
         }
     });
 

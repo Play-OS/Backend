@@ -63,5 +63,9 @@
 
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
-  }
+  },
+  "include": [
+      "src/**/*",
+      "node_modules/@playos/kernel/**/*"
+  ]
 }

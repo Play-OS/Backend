@@ -1,0 +1,8 @@
+{
+    "bins": [
+        {
+            "address": "0x1234",
+            "path": "../PlayOS-core-v2/build/untouched.wasm"
+        }
+    ]
+}

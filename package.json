@@ -16,7 +16,7 @@
     "dotenv": "^8.2.0",
     "mongodb": "^3.0.7",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.25"
   },
   "scripts": {
     "start": "node 'dist/server.js'",
